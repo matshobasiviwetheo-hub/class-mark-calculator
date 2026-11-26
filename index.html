@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Class Mark Calculator</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main>
+
+        <section id="home" class="screen">
+            <span class="badge">For students</span>
+            <h1>Class mark calculator</h1>
+            <p class="mute">Work out your class mark, then see what you need in the exam.</p>
+            <button class="big lime" id="b-class">Calculate class mark<small>Enter your tests, assignments, quizzes and
+                    practicals</small><span class="arrow" aria-hidden="true">→</span></button>
+            <button class="big" id="b-pred">Predict exam mark<small>Find the exam mark you need to pass or get a
+                    distinction</small><span class="arrow" aria-hidden="true">→</span></button>
+            <!--<div class="formula">Class mark = <b>Σ(mark × weight) ÷ Σ weight</b></div>-->
+        </section>
+
+        <section id="s1" class="screen card" hidden>
+            <div class="step">Step 1 of 3</div>
+            <h2>Course mark weighting</h2>
+            <p class="mute">What percentage of the final mark does your class mark count for? Check your course outline.
+            </p>
+            <label for="cw">Class mark weight (%)</label>
+            <input id="cw" type="number" inputmode="decimal" min="1" max="99" step="any"
+                placeholder="Enter a value from 1 to 99">
+            <p class="msg">Exam weight: <b id="ew">—</b></p>
+            <div class="actions"><button data-go="home">Back</button><button class="pri" id="n1" disabled>Next</button>
+            </div>
+        </section>
+
+        <section id="s2" class="screen card" hidden>
+            <div class="step">Step 2 of 3</div>
+            <h2>Tests</h2>
+            <p class="mute">Enter each test mark and its weight. Weight is the % of the final course mark.</p>
+            <div class="grid">
+                <div class="hd"><span></span><span>Name</span><span>Mark (%)</span><span>Weight (%)</span><span></span>
+                </div>
+                <div id="g-tests"></div>
+            </div>
+            <button class="add" data-add="g-tests">+ Add test</button>
+            <p class="msg" id="m2">Add at least one test to continue.</p>
+            <div class="actions"><button data-go="s1">Back</button><button class="pri" id="n2" disabled>Next</button>
+            </div>
+        </section>
+
+        <section id="s3" class="screen card" hidden>
+            <div class="step">Step 3 of 3</div>
+            <h2>Anything else?</h2>
+            <p class="mute">These are optional. Leave a section empty if it doesn’t apply.</p>
+            <h3>Any assignments?</h3>
+            <div class="grid">
+                <div class="hd"><span></span><span>Name</span><span>Mark (%)</span><span>Weight (%)</span><span></span>
+                </div>
+                <div id="g-assign"></div>
+            </div>
+            <button class="add" data-add="g-assign">+ Add assignment</button>
+
+            <h3>Any quizzes?</h3>
+            <div class="grid">
+                <div class="hd"><span></span><span>Name</span><span>Mark (%)</span><span>Weight (%)</span><span></span>
+                </div>
+                <div id="g-quiz"></div>
+            </div>
+            <button class="add" data-add="g-quiz">+ Add quiz</button>
+
+            <h3>Any tutorials?</h3>
+            <div class="grid">
+                <div class="hd"><span></span><span>Name</span><span>Mark (%)</span><span>Weight (%)</span><span></span>
+                </div>
+                <div id="g-tut"></div>
+            </div>
+            <button class="add" data-add="g-tut">+ Add tutorial</button>
+
+            <h3>Any practicals?</h3>
+            <div class="grid">
+                <div class="hd"><span></span><span>Name</span><span>Mark (%)</span><span>Weight (%)</span><span></span>
+                </div>
+                <div id="g-prac"></div>
+            </div>
+            <button class="add" data-add="g-prac">+ Add practical</button>
+            <p class="msg" id="m3"></p>
+            <div class="actions"><button data-go="s2">Back</button><button class="pri" id="calc" disabled>Calculate
+                    class mark</button></div>
+        </section>
+
+        <section id="res" class="screen card" hidden>
+            <h2>Your class mark</h2>
+            <div class="result" id="rv">—</div>
+            <p id="rb"></p>
+            <p class="msg" id="rw"></p>
+            <div class="actions"><button data-go="s1">Edit marks</button><button class="pri" id="to-pred">Predict exam
+                    mark</button></div>
+            <div class="actions"><button data-go="home">Start over</button></div>
+        </section>
+
+        <section id="pred" class="screen card" hidden>
+            <h2>Predict exam mark</h2>
+            <p class="mute">Exam mark needed = (target − banked marks) ÷ exam weight.</p>
+            <label for="pcw">Class mark weight (%)</label><input id="pcw" type="number" inputmode="decimal" min="1"
+                max="99" step="any">
+            <label for="pcm">Class mark (%)</label><input id="pcm" type="number" inputmode="decimal" min="0" max="100"
+                step="any">
+            <label for="psub">Exam sub-minimum (%), optional</label><input id="psub" type="number" inputmode="decimal"
+                min="0" max="100" step="any" placeholder="Leave empty if none">
+            <label for="ppass">Pass mark (%) ~ <i>your aim </i></label><input id="ppass" type="number"
+                inputmode="decimal" step="any" value="50">
+            <label for="pdist">Distinction mark (%)</label><input id="pdist" type="number" inputmode="decimal"
+                step="any" value="75">
+            <div id="pout" aria-live="polite"></div>
+            <div class="actions"><button data-go="home">Home</button></div>
+        </section>
+
+        <footer class="site-footer">
+            © <span id="year">2026</span> Siviwe Theo Matshoba. All rights reserved.
+            <br>Results are estimates. Check them against your official class record.
+        </footer>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
